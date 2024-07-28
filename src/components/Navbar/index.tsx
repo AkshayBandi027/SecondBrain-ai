@@ -1,7 +1,21 @@
 import Link from "next/link"
 import { ThemeSwitcher } from "../theme-toggle-btn"
+import { Button } from "../ui/button"
+import SignInButton from "../sign-in-button"
+import getUser from "@/lib/auth/helpers"
+import UserButton from "../user-button"
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "../ui/sheet"
+import { MenuIcon } from "lucide-react"
 
-export default function NavBar() {
+export default async function NavBar() {
+  const user = await getUser()
+
   const navLinks = [
     {
       title: "Features",
@@ -31,7 +45,37 @@ export default function NavBar() {
             </Link>
           ))}
         </nav>
+        {!user ? <SignInButton /> : <UserButton user={user} />}
         <ThemeSwitcher />
+        <Sheet>
+          <SheetTrigger asChild className="-order-1">
+            <Button
+              className="md:hidden mr-3"
+              variant="outline"
+              size="icon"
+              aria-label="Open Menu"
+            >
+              <MenuIcon className="w-6 h-6" />
+            </Button>
+          </SheetTrigger>
+          <SheetContent side="left">
+            <SheetHeader>
+              <SheetTitle>SecondBrain</SheetTitle>
+            </SheetHeader>
+            <div className="flex flex-col gap-4 py-4">
+              {navLinks.map((link) => (
+                <Link
+                  prefetch={false}
+                  href={link.href}
+                  className="text-sm font-medium hover:underline underline-offset-4"
+                  key={link.href.toLocaleLowerCase()}
+                >
+                  {link.title}
+                </Link>
+              ))}
+            </div>
+          </SheetContent>
+        </Sheet>
       </div>
     </header>
   )
