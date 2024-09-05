@@ -1,9 +1,9 @@
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
-import { redirect } from "next/navigation"
+import { Loader2 } from "lucide-react"
+import { useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
-import { z } from "zod"
 import {
   Card,
   CardContent,
@@ -12,35 +12,22 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card"
-import { Loader, Loader2 } from "lucide-react"
 
+import signUp from "@/actions/sign-up"
+import { cn } from "@/lib/utils"
+import { formSchema, formSchemaType } from "@/lib/validators/auth/sign-up"
+import { useMutation } from "react-query"
+import { buttonVariants } from "../ui/button"
 import { Input } from "../ui/input"
 import { Label } from "../ui/label"
-import { cn } from "@/lib/utils"
-import { buttonVariants } from "../ui/button"
-import { useTransition } from "react"
-import signUp from "@/actions/sign-up"
-
-export const formSchema = z
-  .object({
-    name: z.string(),
-    email: z.string().email(),
-    password: z.string().min(8),
-    confirmPassword: z.string().min(8),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: "Password doesn't match",
-    path: ["confirmPassword"],
-  })
 
 export default function SignUpForm() {
-  const [isPending, startTransition] = useTransition()
-
+  const router = useRouter()
   const {
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm<z.infer<typeof formSchema>>({
+  } = useForm<formSchemaType>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
@@ -50,15 +37,16 @@ export default function SignUpForm() {
     },
   })
 
-  const onSubmit = handleSubmit((data) => {
-    startTransition(async () => {
+  const { mutate, isLoading } = useMutation({
+    mutationKey: ["sign-up"],
+    mutationFn: async (data: formSchemaType) => {
       const response = await signUp(data)
-      if (response.success) redirect("/")
-    })
+      if (response.success) router.push("/")
+    },
   })
 
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={handleSubmit((e) => mutate(e))}>
       <Card className="min-w-[700px]">
         <CardHeader>
           <CardTitle>Create your account</CardTitle>
@@ -135,9 +123,9 @@ export default function SignUpForm() {
           <button
             type="submit"
             className={cn(buttonVariants())}
-            disabled={isPending}
+            disabled={isLoading}
           >
-            {isPending ? <Loader2 /> : "create"}
+            {isLoading ? <Loader2 /> : "create"}
           </button>
         </CardFooter>
       </Card>

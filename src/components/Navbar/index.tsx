@@ -15,7 +15,7 @@ import { MenuIcon } from "lucide-react"
 
 export default async function NavBar() {
   const user = await getUser()
-
+  console.log(user)
   const navLinks = [
     {
       title: "Features",

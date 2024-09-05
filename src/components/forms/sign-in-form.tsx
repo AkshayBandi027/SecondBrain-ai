@@ -1,9 +1,8 @@
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
-import { redirect, useRouter } from "next/navigation"
-import { Form, useForm } from "react-hook-form"
-import { z } from "zod"
+import { useRouter } from "next/navigation"
+import { useForm } from "react-hook-form"
 import {
   Card,
   CardContent,
@@ -13,26 +12,31 @@ import {
   CardTitle,
 } from "../ui/card"
 
+import signIn from "@/actions/sign-in"
+import { cn } from "@/lib/utils"
+import { formSchema, formSchemaType } from "@/lib/validators/auth/sign-in"
+import { Loader2 } from "lucide-react"
+import { useMutation } from "react-query"
+import { buttonVariants } from "../ui/button"
 import { Input } from "../ui/input"
 import { Label } from "../ui/label"
-import { cn } from "@/lib/utils"
-import { buttonVariants } from "../ui/button"
-import { useTransition } from "react"
-import { Loader2 } from "lucide-react"
-import signIn from "@/actions/sign-in"
-
-export const formSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(8),
-})
 
 export default function SignInForm() {
-  const [isPending, startTransition] = useTransition()
+  const router = useRouter()
+  const { mutate, isLoading } = useMutation({
+    mutationKey: ["sign-in"],
+    mutationFn: async (data: formSchemaType) => {
+      const response = await signIn(data)
+      console.log("ran")
+      if (response.success) router.push("/")
+    },
+  })
+
   const {
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm<z.infer<typeof formSchema>>({
+  } = useForm<formSchemaType>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: "",
@@ -40,15 +44,8 @@ export default function SignInForm() {
     },
   })
 
-  const onSubmit = handleSubmit((data) => {
-    startTransition(async () => {
-      const response = await signIn(data)
-      if (response.success) redirect("/")
-    })
-  })
-
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={handleSubmit((e) => mutate(e))}>
       <Card>
         <CardHeader>
           <CardTitle>Sign In to SecondBrain </CardTitle>
@@ -90,9 +87,9 @@ export default function SignInForm() {
           <button
             type="submit"
             className={cn(buttonVariants())}
-            disabled={isPending}
+            disabled={isLoading}
           >
-            {isPending ? <Loader2 /> : "login"}
+            {isLoading ? <Loader2 /> : "login"}
           </button>
         </CardFooter>
       </Card>

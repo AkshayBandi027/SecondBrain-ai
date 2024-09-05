@@ -1,7 +1,7 @@
 "use server"
 
 import { z } from "zod"
-import type { formSchema } from "@/components/forms/sign-up-form"
+import type { formSchema } from "@/lib/validators/auth/sign-up"
 import { db } from "@/db"
 import { generateId, Scrypt } from "lucia"
 import { users } from "@/db/schema"

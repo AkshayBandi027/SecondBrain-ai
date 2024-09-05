@@ -10,7 +10,11 @@ import { CircleUserRound } from "lucide-react"
 import SignOutButton from "./sign-out-button"
 import { User } from "@/db/schema"
 
-export default function UserButton({ user }: Partial<User>) {
+interface UserButtonProps extends IntrinsicAttributes {
+   user: User
+}
+
+export default function UserButton({ user }: UserButtonProps) {
   console.log(user.name)
   return (
     <DropdownMenu>
