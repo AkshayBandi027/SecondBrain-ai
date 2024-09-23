@@ -44,6 +44,9 @@ importers:
       '@radix-ui/react-tabs':
         specifier: ^1.1.0
         version: 1.1.0(@types/react-dom@18.3.0)(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@remixicon/react':
+        specifier: ^4.2.0
+        version: 4.2.0(react@18.3.1)
       '@uploadthing/react':
         specifier: ^6.7.2
         version: 6.7.2(next@14.2.5(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)(svelte@4.2.19)(uploadthing@6.13.2(next@14.2.5(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(tailwindcss@3.4.10))(vue@3.5.4(typescript@5.5.4))
@@ -1549,6 +1552,11 @@ packages:
     resolution: {integrity: sha512-IwEphTD75liO8g+6taS+4oqz+nnroocNfWVHWz7j+N+ZO2vYrc6PV1q7GQhuahL0IOR7JccFTsFKQ/mb6iZWAg==}
     peerDependencies:
       react: '>=16.8'
+
+  '@remixicon/react@4.2.0':
+    resolution: {integrity: sha512-eGhKpZ88OU0qkcY9pJu6khBmItDV82nU130E6C68yc+FbljueHlUYy/4CrJsmf860RIDMay2Rpzl27OSJ81miw==}
+    peerDependencies:
+      react: '>=18.2.0'
 
   '@rtsao/scc@1.1.0':
     resolution: {integrity: sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g==}
@@ -5548,6 +5556,10 @@ snapshots:
       react: 18.3.1
 
   '@react-hook/passive-layout-effect@1.2.1(react@18.3.1)':
+    dependencies:
+      react: 18.3.1
+
+  '@remixicon/react@4.2.0(react@18.3.1)':
     dependencies:
       react: 18.3.1
 
