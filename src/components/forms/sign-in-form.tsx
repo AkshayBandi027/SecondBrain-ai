@@ -12,7 +12,7 @@ import {
   CardTitle,
 } from "../ui/card"
 
-import signIn from "@/actions/sign-in"
+import signIn from "@/actions/auth/sign-in"
 import { cn } from "@/lib/utils"
 import { formSchema, formSchemaType } from "@/lib/validators/auth/sign-in"
 import { Loader2 } from "lucide-react"

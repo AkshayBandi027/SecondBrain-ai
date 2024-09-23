@@ -5,6 +5,7 @@ import { useUploadThing } from "@/lib/uploadthing"
 import { Button } from "../ui/button"
 import { useCallback, useState } from "react"
 import { toast } from "sonner"
+import { TranscribeFile } from "@/actions/uploads"
 
 export function DropZone() {
   const [file, setFile] = useState<File>()
@@ -13,7 +14,7 @@ export function DropZone() {
     setFile(accpetedFiles[0])
   }, [])
 
-  const { startUpload, permittedFileInfo } = useUploadThing("fileUploader", {
+  const { startUpload } = useUploadThing("fileUploader", {
     onClientUploadComplete: () => {
       toast("uploaded successfully")
     },
@@ -35,12 +36,20 @@ export function DropZone() {
     onDrop,
   })
 
-  console.log(file)
-
   const handleTranscribe = async () => {
-    if (file) {
+    if (!file) {
+      return toast("file doesn't exist!")
+    }
+
+    try {
       const response = await startUpload([file])
       console.log(response)
+      const transcriptionResponse = await TranscribeFile(
+        response[0]?.serverData
+      )
+      console.log(transcriptionResponse)
+    } catch {
+      console.log(`Error while upload or transcribe file.`)
     }
   }
 

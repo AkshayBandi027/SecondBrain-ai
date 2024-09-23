@@ -13,7 +13,7 @@ import {
   CardTitle,
 } from "../ui/card"
 
-import signUp from "@/actions/sign-up"
+import signUp from "@/actions/auth/sign-up"
 import { cn } from "@/lib/utils"
 import { formSchema, formSchemaType } from "@/lib/validators/auth/sign-up"
 import { useMutation } from "react-query"
