@@ -1,13 +1,16 @@
-import getUser from "@/lib/auth/helpers"
+import { validateRequest } from "@/lib/auth/helpers"
 import { createUploadthing, type FileRouter } from "uploadthing/next"
 import { UploadThingError } from "uploadthing/server"
 
 const f = createUploadthing()
 
 export const ourFileRouter = {
-  fileUploader: f({ video: { maxFileSize: "32MB" } })
+  fileUploader: f({
+    pdf: { maxFileCount: 1, maxFileSize: "16MB" },
+    "text/markdown": { maxFileCount: 1, maxFileSize: "4MB" },
+  })
     .middleware(async ({ req }) => {
-      const user = await getUser()
+      const user = await validateRequest()
 
       if (!user) throw new UploadThingError("Unauthorized")
 
@@ -16,10 +19,8 @@ export const ourFileRouter = {
     .onUploadComplete(async ({ metadata, file }) => {
       console.log("Upload complete for userId:", metadata.userId)
 
-      console.log("file url", file.url)
-
       // !!! Whatever is returned here is sent to the clientside `onClientUploadComplete` callback
-      return { uploadedBy: metadata.userId,fileUrl: file.url }
+      return { userId: metadata.userId, file: file }
     }),
 } satisfies FileRouter
 

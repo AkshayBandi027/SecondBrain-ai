@@ -1,8 +1,10 @@
+"use server"
+
 import { cookies } from "next/headers"
 import { lucia } from "."
-import { db } from "@/db"
+import { cache } from "react"
 
-export default async function getUser() {
+export const validateRequest = cache(async () => {
   const sessionId = cookies().get(lucia.sessionCookieName)?.value || null
 
   if (!sessionId) return null
@@ -20,7 +22,7 @@ export default async function getUser() {
     }
 
     if (session && session.fresh) {
-      const sessionCookie =  await lucia.createSessionCookie(sessionId)
+      const sessionCookie = await lucia.createSessionCookie(sessionId)
       cookies().set(
         sessionCookie.name,
         sessionCookie.value,
@@ -31,9 +33,5 @@ export default async function getUser() {
     console.log()
   }
 
-  const dbUser = await db.query.users.findFirst({
-    where: (table,{eq}) => eq(user?.id,table.id)
-  })
-  
-  return dbUser
-}
+  return user
+})

@@ -4,7 +4,6 @@ import { cookies } from "next/headers"
 import { redirect } from "next/navigation"
 import { NextRequest } from "next/server"
 import { db } from "@/db"
-import { TicketX } from "lucide-react"
 import { users } from "@/db/schema"
 import { generateId } from "lucia"
 
@@ -53,26 +52,22 @@ export async function GET(req: NextRequest, res: Response) {
   }
 
   let userId: string = ""
-  // if the email exists in our record, we can create a cookie for them and sign them in
-  // if the email doesn't exist, we create a new user, then craete cookie to sign them in
 
-  await db.transaction(async (tx) => {
-    const existingUser = await tx.query.users.findFirst({
-      where: (table, { eq }) => eq(googleData.email, table.email),
-    })
-
-    if (!existingUser) {
-      const id = generateId(12)
-      await tx.insert(users).values({
-        email: googleData.email,
-        name: googleData.name,
-        id,
-      })
-      userId = id
-    } else {
-      userId = existingUser.id
-    }
+  const existingUser = await db.query.users.findFirst({
+    where: (table, { eq }) => eq(table.email, googleData.email),
   })
+
+  if (!existingUser) {
+    const id = generateId(12)
+    await db.insert(users).values({
+      id,
+      name: googleData.name,
+      email: googleData.email,
+    })
+    userId = id
+  } else {
+    userId = existingUser.id
+  }
 
   const session = await lucia.createSession(userId, {})
   const sessionCookie = await lucia.createSessionCookie(session.id)

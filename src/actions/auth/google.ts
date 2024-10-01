@@ -1,3 +1,5 @@
+"use server"
+
 import { googleOAuthClient } from "@/lib/auth/google-oauth"
 import { generateCodeVerifier, generateState } from "arctic"
 import { cookies } from "next/headers"

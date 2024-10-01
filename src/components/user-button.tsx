@@ -10,8 +10,8 @@ import { CircleUserRound } from "lucide-react"
 import SignOutButton from "./sign-out-button"
 import { User } from "@/db/schema"
 
-interface UserButtonProps extends IntrinsicAttributes {
-   user: User
+interface UserButtonProps {
+   user: Omit<User,"hashedPassword">
 }
 
 export default function UserButton({ user }: UserButtonProps) {

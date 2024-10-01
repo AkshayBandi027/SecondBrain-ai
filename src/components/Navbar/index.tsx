@@ -2,7 +2,6 @@ import Link from "next/link"
 import { ThemeSwitcher } from "../theme-toggle-btn"
 import { Button } from "../ui/button"
 import SignInButton from "../sign-in-button"
-import getUser from "@/lib/auth/helpers"
 import UserButton from "../user-button"
 import {
   Sheet,
@@ -12,10 +11,10 @@ import {
   SheetTrigger,
 } from "../ui/sheet"
 import { MenuIcon } from "lucide-react"
+import { validateRequest } from "@/lib/auth/helpers"
 
 export default async function NavBar() {
-  const user = await getUser()
-  console.log(user)
+  const user = await validateRequest()
   const navLinks = [
     {
       title: "Features",
