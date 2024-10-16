@@ -32,18 +32,21 @@ export function DropZone() {
     accept: {
       "text/plain": [".txt"], // Accept plain text files
       "text/markdown": [".md"], // Accept markdown files
+      "application/pdf": [".pdf"]
     },
     onDrop,
   })
 
-  const handleTranscribe = async () => {
+  const handleUpload = async () => {
     if (!file) {
       throw new Error("File doesn't exist")
     }
     try {
       const response = await startUpload([file])
-      const fileUrl = response[0]?.url
-      await extractText(fileUrl)
+     if(!response) {
+        throw new Error("Failed to upload file")
+     }
+     const extractedText = await extractText(response[0].url,response[0].name,response[0].serverData.file.type)
     } catch (error) {
       console.log(error)
     }
@@ -58,7 +61,7 @@ export function DropZone() {
         <input {...getInputProps()} />
         <p>Drag 'n' drop some files here, or click to select files</p>
       </div>
-      <Button onClick={handleTranscribe}>Transcribe</Button>
+      <Button onClick={handleUpload}>Transcribe</Button>
     </div>
   )
 }
