@@ -20,12 +20,15 @@ importers:
       '@hookform/resolvers':
         specifier: ^3.9.0
         version: 3.9.0(react-hook-form@7.53.0(react@18.3.1))
+      '@huggingface/inference':
+        specifier: '2'
+        version: 2.8.1
       '@langchain/community':
         specifier: ^0.3.4
-        version: 0.3.4(@langchain/core@0.3.5(openai@4.58.1(zod@3.23.8)))(@neondatabase/serverless@0.9.5)(cheerio@1.0.0)(ignore@5.3.2)(openai@4.58.1(zod@3.23.8))(pdf-parse@1.1.1)
+        version: 0.3.4(@huggingface/inference@2.8.1)(@langchain/core@0.3.5(openai@4.58.1(encoding@0.1.13)(zod@3.23.8)))(@neondatabase/serverless@0.9.5)(@pinecone-database/pinecone@3.0.3)(cheerio@1.0.0)(encoding@0.1.13)(ignore@5.3.2)(openai@4.58.1(encoding@0.1.13)(zod@3.23.8))(pdf-parse@1.1.1)
       '@langchain/core':
         specifier: ^0.3.5
-        version: 0.3.5(openai@4.58.1(zod@3.23.8))
+        version: 0.3.5(openai@4.58.1(encoding@0.1.13)(zod@3.23.8))
       '@lucia-auth/adapter-drizzle':
         specifier: ^1.0.7
         version: 1.1.0(drizzle-orm@0.32.2(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@types/pg@8.11.6)(@types/react@18.3.5)(react@18.3.1))(lucia@3.2.0)
@@ -35,6 +38,9 @@ importers:
       '@neondatabase/serverless':
         specifier: ^0.9.4
         version: 0.9.5
+      '@pinecone-database/pinecone':
+        specifier: ^3.0.3
+        version: 3.0.3
       '@radix-ui/react-dialog':
         specifier: ^1.1.1
         version: 1.1.1(@types/react-dom@18.3.0)(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -53,12 +59,15 @@ importers:
       '@remixicon/react':
         specifier: ^4.2.0
         version: 4.2.0(react@18.3.1)
+      '@types/uuid':
+        specifier: ^10.0.0
+        version: 10.0.0
       '@uploadthing/react':
         specifier: ^6.7.2
         version: 6.7.2(next@14.2.5(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)(svelte@4.2.19)(uploadthing@6.13.2(next@14.2.5(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(tailwindcss@3.4.10))(vue@3.5.4(typescript@5.5.4))
       ai:
         specifier: ^3.3.32
-        version: 3.3.32(openai@4.58.1(zod@3.23.8))(react@18.3.1)(sswr@2.1.0(svelte@4.2.19))(svelte@4.2.19)(vue@3.5.4(typescript@5.5.4))(zod@3.23.8)
+        version: 3.3.32(openai@4.58.1(encoding@0.1.13)(zod@3.23.8))(react@18.3.1)(sswr@2.1.0(svelte@4.2.19))(svelte@4.2.19)(vue@3.5.4(typescript@5.5.4))(zod@3.23.8)
       arctic:
         specifier: ^1.9.2
         version: 1.9.2
@@ -82,7 +91,7 @@ importers:
         version: 0.13.0
       langchain:
         specifier: ^0.3.2
-        version: 0.3.2(@langchain/core@0.3.5(openai@4.58.1(zod@3.23.8)))(cheerio@1.0.0)(openai@4.58.1(zod@3.23.8))
+        version: 0.3.2(@langchain/core@0.3.5(openai@4.58.1(encoding@0.1.13)(zod@3.23.8)))(cheerio@1.0.0)(encoding@0.1.13)(openai@4.58.1(encoding@0.1.13)(zod@3.23.8))
       lucia:
         specifier: ^3.2.0
         version: 3.2.0
@@ -97,7 +106,7 @@ importers:
         version: 0.3.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       openai:
         specifier: ^4.58.1
-        version: 4.58.1(zod@3.23.8)
+        version: 4.58.1(encoding@0.1.13)(zod@3.23.8)
       pdf-parse:
         specifier: ^1.1.1
         version: 1.1.1
@@ -128,6 +137,9 @@ importers:
       uploadthing:
         specifier: ^6.13.2
         version: 6.13.2(next@14.2.5(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(tailwindcss@3.4.10)
+      uuid:
+        specifier: ^10.0.0
+        version: 10.0.0
       zod:
         specifier: ^3.23.8
         version: 3.23.8
@@ -702,6 +714,17 @@ packages:
     resolution: {integrity: sha512-bU0Gr4EepJ/EQsH/IwEzYLsT/PEj5C0ynLQ4m+GSHS+xKH4TfSelhluTgOaoc4kA5s7eCsQbM4wvZLzELmWzUg==}
     peerDependencies:
       react-hook-form: ^7.0.0
+
+  '@huggingface/gguf@0.1.12':
+    resolution: {integrity: sha512-m+u/ms28wE74v2VVCTncfI/KB2v897MRMOoRuYSU62P85fJ6/B2exMlHCNyAXkgDLeXBWDivXl4gPq+XbHmkaA==}
+    engines: {node: '>=20'}
+
+  '@huggingface/inference@2.8.1':
+    resolution: {integrity: sha512-EfsNtY9OR6JCNaUa5bZu2mrs48iqeTz0Gutwf+fU0Kypx33xFQB4DKMhp8u4Ee6qVbLbNWvTHuWwlppLQl4p4Q==}
+    engines: {node: '>=18'}
+
+  '@huggingface/tasks@0.12.22':
+    resolution: {integrity: sha512-zpoCUJPUUQ9924PGMXZx8fYpcBnsMV7c+6EUZ4edVZmw28sW9yTo+RJAXrbcLquVsYrYxNgkKYc3odnM0/swfg==}
 
   '@humanwhocodes/config-array@0.11.14':
     resolution: {integrity: sha512-3T8LkOmg45BV5FICb15QQMsyUSWrQ8AygVfC7ZG32zOalnqrilm018ZVCw0eapXux8FtA33q8PSRSstjee3jSg==}
@@ -1516,6 +1539,10 @@ packages:
   '@opentelemetry/api@1.9.0':
     resolution: {integrity: sha512-3giAOQvZiH5F9bMlMiv8+GSPMeqg0dbaeo58/0SlA9sxSqZhnUtxzX9/2FzyhS9sWQf5S0GJE0AKBrFqjpeYcg==}
     engines: {node: '>=8.0.0'}
+
+  '@pinecone-database/pinecone@3.0.3':
+    resolution: {integrity: sha512-0cAG0d/6knVZgVyXM1II4qG3dyOepLuAQsCXTOJomdA7iQxf+/Om9mq9Cw4QObr56oZ+lqtptlw5qz0BQaBX2Q==}
+    engines: {node: '>=18.0.0'}
 
   '@pkgjs/parseargs@0.11.0':
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
@@ -2696,6 +2723,9 @@ packages:
 
   encoding-sniffer@0.2.0:
     resolution: {integrity: sha512-ju7Wq1kg04I3HtiYIOrUrdfdDvkyO9s5XM8QAj/bN61Yo/Vb4vgJxy5vi4Yxk01gWHbrofpPtpxM8bKger9jhg==}
+
+  encoding@0.1.13:
+    resolution: {integrity: sha512-ETBauow1T35Y/WZMkio9jiM0Z5xjHHmJ4XmjZOq1l/dXz3lr2sRn87nJy20RupqSh1F2m3HHPSp8ShIPQJrJ3A==}
 
   enhanced-resolve@5.17.1:
     resolution: {integrity: sha512-LMHl3dXhTcfv8gM4kEzIUeTQ+7fpdA0l2tUf34BddXPkz2A5xJ5L/Pchd5BL6rdccM9QGvu0sWZzK1Z1t4wwyg==}
@@ -5188,6 +5218,16 @@ snapshots:
     dependencies:
       react-hook-form: 7.53.0(react@18.3.1)
 
+  '@huggingface/gguf@0.1.12': {}
+
+  '@huggingface/inference@2.8.1':
+    dependencies:
+      '@huggingface/tasks': 0.12.22
+
+  '@huggingface/tasks@0.12.22':
+    dependencies:
+      '@huggingface/gguf': 0.1.12
+
   '@humanwhocodes/config-array@0.11.14':
     dependencies:
       '@humanwhocodes/object-schema': 2.0.3
@@ -5226,21 +5266,23 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
 
-  '@langchain/community@0.3.4(@langchain/core@0.3.5(openai@4.58.1(zod@3.23.8)))(@neondatabase/serverless@0.9.5)(cheerio@1.0.0)(ignore@5.3.2)(openai@4.58.1(zod@3.23.8))(pdf-parse@1.1.1)':
+  '@langchain/community@0.3.4(@huggingface/inference@2.8.1)(@langchain/core@0.3.5(openai@4.58.1(encoding@0.1.13)(zod@3.23.8)))(@neondatabase/serverless@0.9.5)(@pinecone-database/pinecone@3.0.3)(cheerio@1.0.0)(encoding@0.1.13)(ignore@5.3.2)(openai@4.58.1(encoding@0.1.13)(zod@3.23.8))(pdf-parse@1.1.1)':
     dependencies:
-      '@langchain/core': 0.3.5(openai@4.58.1(zod@3.23.8))
-      '@langchain/openai': 0.3.4(@langchain/core@0.3.5(openai@4.58.1(zod@3.23.8)))
+      '@langchain/core': 0.3.5(openai@4.58.1(encoding@0.1.13)(zod@3.23.8))
+      '@langchain/openai': 0.3.4(@langchain/core@0.3.5(openai@4.58.1(encoding@0.1.13)(zod@3.23.8)))(encoding@0.1.13)
       binary-extensions: 2.3.0
       expr-eval: 2.0.2
       flat: 5.0.2
       js-yaml: 4.1.0
-      langchain: 0.3.2(@langchain/core@0.3.5(openai@4.58.1(zod@3.23.8)))(cheerio@1.0.0)(openai@4.58.1(zod@3.23.8))
-      langsmith: 0.1.61(openai@4.58.1(zod@3.23.8))
+      langchain: 0.3.2(@langchain/core@0.3.5(openai@4.58.1(encoding@0.1.13)(zod@3.23.8)))(cheerio@1.0.0)(encoding@0.1.13)(openai@4.58.1(encoding@0.1.13)(zod@3.23.8))
+      langsmith: 0.1.61(openai@4.58.1(encoding@0.1.13)(zod@3.23.8))
       uuid: 10.0.0
       zod: 3.23.8
       zod-to-json-schema: 3.23.2(zod@3.23.8)
     optionalDependencies:
+      '@huggingface/inference': 2.8.1
       '@neondatabase/serverless': 0.9.5
+      '@pinecone-database/pinecone': 3.0.3
       cheerio: 1.0.0
       ignore: 5.3.2
       pdf-parse: 1.1.1
@@ -5259,13 +5301,13 @@ snapshots:
       - openai
       - peggy
 
-  '@langchain/core@0.3.5(openai@4.58.1(zod@3.23.8))':
+  '@langchain/core@0.3.5(openai@4.58.1(encoding@0.1.13)(zod@3.23.8))':
     dependencies:
       ansi-styles: 5.2.0
       camelcase: 6.3.0
       decamelize: 1.2.0
       js-tiktoken: 1.0.14
-      langsmith: 0.1.61(openai@4.58.1(zod@3.23.8))
+      langsmith: 0.1.61(openai@4.58.1(encoding@0.1.13)(zod@3.23.8))
       mustache: 4.2.0
       p-queue: 6.6.2
       p-retry: 4.6.2
@@ -5275,19 +5317,19 @@ snapshots:
     transitivePeerDependencies:
       - openai
 
-  '@langchain/openai@0.3.4(@langchain/core@0.3.5(openai@4.58.1(zod@3.23.8)))':
+  '@langchain/openai@0.3.4(@langchain/core@0.3.5(openai@4.58.1(encoding@0.1.13)(zod@3.23.8)))(encoding@0.1.13)':
     dependencies:
-      '@langchain/core': 0.3.5(openai@4.58.1(zod@3.23.8))
+      '@langchain/core': 0.3.5(openai@4.58.1(encoding@0.1.13)(zod@3.23.8))
       js-tiktoken: 1.0.14
-      openai: 4.58.1(zod@3.23.8)
+      openai: 4.58.1(encoding@0.1.13)(zod@3.23.8)
       zod: 3.23.8
       zod-to-json-schema: 3.23.2(zod@3.23.8)
     transitivePeerDependencies:
       - encoding
 
-  '@langchain/textsplitters@0.1.0(@langchain/core@0.3.5(openai@4.58.1(zod@3.23.8)))':
+  '@langchain/textsplitters@0.1.0(@langchain/core@0.3.5(openai@4.58.1(encoding@0.1.13)(zod@3.23.8)))':
     dependencies:
-      '@langchain/core': 0.3.5(openai@4.58.1(zod@3.23.8))
+      '@langchain/core': 0.3.5(openai@4.58.1(encoding@0.1.13)(zod@3.23.8))
       js-tiktoken: 1.0.14
 
   '@lexical/clipboard@0.17.1':
@@ -5785,6 +5827,10 @@ snapshots:
   '@open-draft/deferred-promise@2.2.0': {}
 
   '@opentelemetry/api@1.9.0': {}
+
+  '@pinecone-database/pinecone@3.0.3':
+    dependencies:
+      encoding: 0.1.13
 
   '@pkgjs/parseargs@0.11.0':
     optional: true
@@ -6454,7 +6500,7 @@ snapshots:
     dependencies:
       humanize-ms: 1.2.1
 
-  ai@3.3.32(openai@4.58.1(zod@3.23.8))(react@18.3.1)(sswr@2.1.0(svelte@4.2.19))(svelte@4.2.19)(vue@3.5.4(typescript@5.5.4))(zod@3.23.8):
+  ai@3.3.32(openai@4.58.1(encoding@0.1.13)(zod@3.23.8))(react@18.3.1)(sswr@2.1.0(svelte@4.2.19))(svelte@4.2.19)(vue@3.5.4(typescript@5.5.4))(zod@3.23.8):
     dependencies:
       '@ai-sdk/provider': 0.0.23
       '@ai-sdk/provider-utils': 1.0.18(zod@3.23.8)
@@ -6471,7 +6517,7 @@ snapshots:
       secure-json-parse: 2.7.0
       zod-to-json-schema: 3.23.2(zod@3.23.8)
     optionalDependencies:
-      openai: 4.58.1(zod@3.23.8)
+      openai: 4.58.1(encoding@0.1.13)(zod@3.23.8)
       react: 18.3.1
       sswr: 2.1.0(svelte@4.2.19)
       svelte: 4.2.19
@@ -6979,6 +7025,10 @@ snapshots:
       iconv-lite: 0.6.3
       whatwg-encoding: 3.1.1
 
+  encoding@0.1.13:
+    dependencies:
+      iconv-lite: 0.6.3
+
   enhanced-resolve@5.17.1:
     dependencies:
       graceful-fs: 4.2.11
@@ -7180,7 +7230,7 @@ snapshots:
       eslint: 8.57.0
       eslint-import-resolver-node: 0.3.9
       eslint-import-resolver-typescript: 3.6.3(@typescript-eslint/parser@7.2.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.30.0(eslint@8.57.0))(eslint@8.57.0)
-      eslint-plugin-import: 2.30.0(@typescript-eslint/parser@7.2.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-typescript@3.6.3(@typescript-eslint/parser@7.2.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.30.0(eslint@8.57.0))(eslint@8.57.0))(eslint@8.57.0)
+      eslint-plugin-import: 2.30.0(@typescript-eslint/parser@7.2.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-typescript@3.6.3)(eslint@8.57.0)
       eslint-plugin-jsx-a11y: 6.9.0(eslint@8.57.0)
       eslint-plugin-react: 7.35.1(eslint@8.57.0)
       eslint-plugin-react-hooks: 4.6.2(eslint@8.57.0)
@@ -7211,7 +7261,7 @@ snapshots:
       is-bun-module: 1.1.0
       is-glob: 4.0.3
     optionalDependencies:
-      eslint-plugin-import: 2.30.0(@typescript-eslint/parser@7.2.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-typescript@3.6.3(@typescript-eslint/parser@7.2.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.30.0(eslint@8.57.0))(eslint@8.57.0))(eslint@8.57.0)
+      eslint-plugin-import: 2.30.0(@typescript-eslint/parser@7.2.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-typescript@3.6.3)(eslint@8.57.0)
     transitivePeerDependencies:
       - '@typescript-eslint/parser'
       - eslint-import-resolver-node
@@ -7229,7 +7279,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-import@2.30.0(@typescript-eslint/parser@7.2.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-typescript@3.6.3(@typescript-eslint/parser@7.2.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.30.0(eslint@8.57.0))(eslint@8.57.0))(eslint@8.57.0):
+  eslint-plugin-import@2.30.0(@typescript-eslint/parser@7.2.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-typescript@3.6.3)(eslint@8.57.0):
     dependencies:
       '@rtsao/scc': 1.1.0
       array-includes: 3.1.8
@@ -7844,15 +7894,15 @@ snapshots:
     dependencies:
       json-buffer: 3.0.1
 
-  langchain@0.3.2(@langchain/core@0.3.5(openai@4.58.1(zod@3.23.8)))(cheerio@1.0.0)(openai@4.58.1(zod@3.23.8)):
+  langchain@0.3.2(@langchain/core@0.3.5(openai@4.58.1(encoding@0.1.13)(zod@3.23.8)))(cheerio@1.0.0)(encoding@0.1.13)(openai@4.58.1(encoding@0.1.13)(zod@3.23.8)):
     dependencies:
-      '@langchain/core': 0.3.5(openai@4.58.1(zod@3.23.8))
-      '@langchain/openai': 0.3.4(@langchain/core@0.3.5(openai@4.58.1(zod@3.23.8)))
-      '@langchain/textsplitters': 0.1.0(@langchain/core@0.3.5(openai@4.58.1(zod@3.23.8)))
+      '@langchain/core': 0.3.5(openai@4.58.1(encoding@0.1.13)(zod@3.23.8))
+      '@langchain/openai': 0.3.4(@langchain/core@0.3.5(openai@4.58.1(encoding@0.1.13)(zod@3.23.8)))(encoding@0.1.13)
+      '@langchain/textsplitters': 0.1.0(@langchain/core@0.3.5(openai@4.58.1(encoding@0.1.13)(zod@3.23.8)))
       js-tiktoken: 1.0.14
       js-yaml: 4.1.0
       jsonpointer: 5.0.1
-      langsmith: 0.1.61(openai@4.58.1(zod@3.23.8))
+      langsmith: 0.1.61(openai@4.58.1(encoding@0.1.13)(zod@3.23.8))
       openapi-types: 12.1.3
       p-retry: 4.6.2
       uuid: 10.0.0
@@ -7865,7 +7915,7 @@ snapshots:
       - encoding
       - openai
 
-  langsmith@0.1.61(openai@4.58.1(zod@3.23.8)):
+  langsmith@0.1.61(openai@4.58.1(encoding@0.1.13)(zod@3.23.8)):
     dependencies:
       '@types/uuid': 10.0.0
       commander: 10.0.1
@@ -7874,7 +7924,7 @@ snapshots:
       semver: 7.6.3
       uuid: 10.0.0
     optionalDependencies:
-      openai: 4.58.1(zod@3.23.8)
+      openai: 4.58.1(encoding@0.1.13)(zod@3.23.8)
 
   language-subtag-registry@0.3.23: {}
 
@@ -8425,9 +8475,11 @@ snapshots:
 
   node-ensure@0.0.0: {}
 
-  node-fetch@2.7.0:
+  node-fetch@2.7.0(encoding@0.1.13):
     dependencies:
       whatwg-url: 5.0.0
+    optionalDependencies:
+      encoding: 0.1.13
 
   normalize-path@3.0.0: {}
 
@@ -8488,7 +8540,7 @@ snapshots:
     dependencies:
       wrappy: 1.0.2
 
-  openai@4.58.1(zod@3.23.8):
+  openai@4.58.1(encoding@0.1.13)(zod@3.23.8):
     dependencies:
       '@types/node': 18.19.50
       '@types/node-fetch': 2.6.11
@@ -8497,7 +8549,7 @@ snapshots:
       agentkeepalive: 4.5.0
       form-data-encoder: 1.7.2
       formdata-node: 4.4.1
-      node-fetch: 2.7.0
+      node-fetch: 2.7.0(encoding@0.1.13)
       qs: 6.13.0
     optionalDependencies:
       zod: 3.23.8

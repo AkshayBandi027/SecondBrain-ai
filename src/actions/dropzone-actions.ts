@@ -1,8 +1,19 @@
 "use server"
+
 import {RecursiveCharacterTextSplitter} from "langchain/text_splitter"
 import { TextLoader } from "langchain/document_loaders/fs/text";
 import { PDFLoader } from "@langchain/community/document_loaders/fs/pdf";
+import { embeddings } from "@/lib/embeddings";
+import { v4 as uuidv4 } from 'uuid';
 
+type PDFpage = {
+  pageContent: string
+  metadata: {
+    loc: {
+      pageNumber: number
+    }
+  }
+}
 
 export const extractText = async (url: string,fileName: string,fileType: string) => {
  try {
@@ -38,12 +49,29 @@ export const extractText = async (url: string,fileName: string,fileType: string)
  })
 
  const splitDocs = await textSplitter.splitDocuments(docs)
- const serializedDocs = splitDocs.map((doc) => ({
-  pageContent: doc.pageContent,
-  metadata: {...doc.metadata}
+ 
+ const serializedDocs = splitDocs.map((doc: PDFpage) => ({
+  pageContent: doc.pageContent.replace(/\n/g, " "),
+  metadata: {
+     pageNumber: doc.metadata.loc.pageNumber
+  }
  }))
 
- console.log(`serializedDocs---`,serializedDocs)
+ const vectorEmbeddings =  await Promise.all(serializedDocs.map(async(doc: {pageContent: string, metadata: {pageNumber: number}}) => {
+   const embedding =  await embeddings.embedQuery(doc.pageContent)
+   console.log(doc)
+   const id = uuidv4()
+   return {
+      id,
+      values: embedding,
+      metadata: {
+        pageNumber: doc.metadata.pageNumber,
+      }
+   }
+ }
+))
+
+console.log(vectorEmbeddings, `--- vectorEmbeddings`)
 
 } catch (error) {
   console.log(error)
