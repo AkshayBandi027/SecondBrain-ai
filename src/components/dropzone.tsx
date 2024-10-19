@@ -5,10 +5,12 @@ import { useUploadThing } from "@/lib/uploadthing"
 import { Button } from "./ui/button"
 import { useCallback, useState } from "react"
 import { toast } from "sonner"
-import { extractText } from "@/actions/dropzone-actions"
+import { CreateChat, extractText } from "@/actions/dropzone-actions"
+import { useRouter } from "next/navigation"
 
 export function DropZone() {
   const [file, setFile] = useState<File>()
+  const router = useRouter()
 
   const onDrop = useCallback((accpetedFiles: File[]) => {
     setFile(accpetedFiles[0])
@@ -43,10 +45,22 @@ export function DropZone() {
     }
     try {
       const response = await startUpload([file])
+
      if(!response) {
         throw new Error("Failed to upload file")
      }
-     const extractedText = await extractText(response[0].url,response[0].name,response[0].serverData.file.type)
+     const data = await extractText(response[0].url,response[0].name,response[0].serverData.file.type)
+
+     if(!data.success) {
+        throw new Error("Failed to extract text")
+     }
+
+     const chatResponse = await CreateChat({fileName: response[0].name,fileUrl: response[0].url})
+     if(!chatResponse.success) {
+        throw new Error("Failed to create chat")
+     }
+      router.push(`/chat/${chatResponse.data}`)
+
     } catch (error) {
       console.log(error)
     }

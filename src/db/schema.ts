@@ -1,5 +1,6 @@
-import { relations } from "drizzle-orm"
-import { pgTable, text, timestamp, varchar } from "drizzle-orm/pg-core"
+import { PgTable, pgTable, text, timestamp, varchar,pgEnum } from "drizzle-orm/pg-core"
+
+export const messageRoleEnum = pgEnum("message_role_enum",["user","system"])
 
 export const users = pgTable("users", {
   id: text("id").primaryKey(),
@@ -19,23 +20,22 @@ export const sessions = pgTable("sessions", {
   expiresAt: timestamp("expires_at").notNull(),
 })
 
-export const posts = pgTable("posts", {
-  id: text("id").primaryKey(),
-  userId: varchar("userId")
-    .notNull()
-    .references(() => users.id),
-  title: varchar("title").notNull(),
-  content: text("description").notNull(),
-  createdAt: timestamp("created_at").defaultNow(),
-  updatedAt: timestamp("updated_at").defaultNow(),
+export const chat = pgTable("chat",{
+   id: text("id").primaryKey(),
+   userId: varchar("userId").notNull().references(() => users.id),
+   documentName: text("document_name").notNull(),
+   documentUrl: text("document_url").notNull(),
+   createdAt: timestamp("created_at").notNull(),
 })
 
-export const postsRelations = relations(posts, ({ one }) => ({
-  user: one(users, {
-    fields: [posts.userId],
-    references: [users.id],
-  }),
-}))
+export const messages = pgTable("messages", {
+  id: text ("id").primaryKey(),
+  chatId: varchar("chatId").notNull().references(() => chat.id),
+  createdAt: timestamp("created_at").notNull(),
+  content: text("content").notNull(),
+  role: messageRoleEnum("role").notNull()
+})
 
-export type Post = typeof posts.$inferSelect
-export type NewPost = typeof posts.$inferInsert
+export type Chat = typeof chat.$inferSelect
+export type NewChat = typeof chat.$inferInsert
+export type Message = typeof messages.$inferSelect    
