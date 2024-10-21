@@ -59,7 +59,8 @@ export function DropZone() {
      if(!chatResponse.success) {
         throw new Error("Failed to create chat")
      }
-      router.push(`/chat/${chatResponse.data}`)
+     const chatId = chatResponse.data
+      router.push(`/chat/${chatId}`)
 
     } catch (error) {
       console.log(error)

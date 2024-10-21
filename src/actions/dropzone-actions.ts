@@ -10,7 +10,6 @@ import { convertToAscii } from "@/lib/utils"
 import { db } from "@/db"
 import { chat } from "@/db/schema"
 import { validateRequest } from "@/lib/auth/helpers"
-import { redirect } from "next/navigation"
 
 const loader = async (url: string, fileType: string) => {
   try {
